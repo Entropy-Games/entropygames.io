@@ -1,0 +1,9 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>ESPM - Entropy Script Particle Manager</title> <script defer="defer" src="../../main.js"></script> <style>.command-section{padding:30px 5px;border-bottom:1px solid var(--text-color)}</style> </head> <body> <nav></nav> <main> <h1> Entropy Script Particle Manager </h1> <p class="paragraph"> Entropy Script Particle Manager manages particles (packages) in your EntropyScript project. </p> <div style="padding-bottom:20px"> <a href="https://github.com/revers3ntropy/entropy-script" class="hover-underline" target="”_blank”"> GitHub </a> | <a href="https://www.npmjs.com/package/entropy-script" class="hover-underline" target="”_blank”"> NPM package </a> </div> Download using NPM (bundled with entropy script): <pre><code>
+        npm install entropy-script -g
+    </code></pre> and then use with <pre><code>
+        espm -
+    </code></pre> <br><br> <article style="margin:30px 10px"> <h1> Commands </h1> <div class="command-section"> <h2>install</h2> <pre><code>
+                espm install
+            </code></pre> If there are no other arguments, looks for a <a href="../particle.json/" class="hover-underline">particle.json</a> file, and then downloaded particles specified in that file.<br> Can take another argument, a single particle name. Installs that particle and adds it to the <a href="../particle.json/" class="hover-underline">particle.json</a>. </div> <div class=""> <h2>publish</h2> <pre><code>
+                espm publish
+            </code></pre> Publishes the particle so that others can use it. Requires a main.es file as an entry point.<br> The particle will nbe published under the name specified in the <a href="../particle.json/" class="hover-underline">particle.json</a>. </div> </article> </main> <footer></footer> </body> </html>

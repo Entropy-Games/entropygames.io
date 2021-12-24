@@ -1,0 +1,1 @@
+import{IS_NODE_INSTANCE}from"./constants.js";function addProperty(r,t){Object.defineProperty(String.prototype,r,{get:function(){return IS_NODE_INSTANCE?`[${t}m`+this+"[0m":'<span style="color: red">'+this+"</span>"}})}addProperty("red","31"),addProperty("yellow","33"),addProperty("green","32"),addProperty("cyan","36"),addProperty("blue","34");

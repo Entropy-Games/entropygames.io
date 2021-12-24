@@ -1,0 +1,1 @@
+request("sign-in-with-github",{code:urlParams.get("code")}).then((e=>{e.id?localStorage.setItem("auth-id",e.id):console.error("Invalid ID: "+e.id)}));

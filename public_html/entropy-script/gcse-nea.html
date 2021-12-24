@@ -1,0 +1,50 @@
+<!DOCTYPE html> <html lang="en" style="height:100%"> <head> <meta charset="UTF-8"> <title> Entropy Script </title> <meta name="viewport" content="width=device-width"> <script src="https://code.jquery.com/jquery-1.10.2.js"></script> <style>:root{--input-bg:rgb(255, 255, 255)}#input{padding-bottom:0;margin-bottom:10px;background-color:var(--input-bg);height:80%;outline:0;font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px;width:100%;border:1px solid #e7e7e7}#output{text-align:left;white-space:pre-line;width:100%;padding-top:0;margin-top:0;border:none;background-color:var(--input-bg);font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:13px}button{border:none;margin:3px;padding:5px}</style> </head> <body style="text-align:center;height:100%"> Feel free to edit this, it will save automatically but only locally. Reload the webpage to re-run the script. <textarea id="input" rows="5"></textarea> <div id="output"></div> Enter user input: <input type="text" id="runtime-input"> <div style="height:1000px;border:1px solid #fff"> </div> </body> </html> <script type="module"> import {run, init} from "./es";
+	import './es/tests.js';
+	import {str} from "./es/util.js";
+
+	const input = $('#input');
+	const output = document.getElementById('output');
+	const runtimeInput = $('#runtime-input');
+
+	if (!localStorage.gcseNEAlast) {
+		fetch('./NEA.es')
+        .then(r => r.text())
+        .then(newText => {
+			localStorage.gcseNEAlast = newText;
+			window.location.reload();
+        });
+    }
+
+	input.val(localStorage.gcseNEAlast);
+
+	function outputFunc (message) {
+		const messageP = document.createElement('p');
+		messageP.innerHTML = str(message);
+		output.appendChild(messageP);
+	}
+
+    init(outputFunc, (message, cb) => {
+    	outputFunc(message);
+        let ran = false;
+		runtimeInput.keyup(e => {
+			if(e.keyCode !== 13) return;
+        	if (ran) return;
+        	ran = true;
+        	cb(runtimeInput.val());
+        	runtimeInput.val('');
+        });
+    }, []);
+
+    output.innerHTML = '';
+    const res = run(input.val(), {
+        measurePerformance: true
+    });
+    if (res.error) outputFunc(res.error.str);
+
+	$('document').ready(function() {
+		$(window).scrollTop(0);
+	});
+
+	setInterval(() => {
+		localStorage.gcseNEAlast = input.val();
+    }, 250); </script>
